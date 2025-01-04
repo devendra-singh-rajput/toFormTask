@@ -8,7 +8,7 @@ function lengthOfLongestSubstring(s) {
         // If the character is already in the set, slide the window from the left
         while (charSet.has(s[end])) {
             charSet.delete(s[start]);
-            start++; // Move the 'start' pointer to the right
+            start++; 
         }
 
         // Add the new character to the set
