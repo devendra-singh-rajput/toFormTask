@@ -2,12 +2,11 @@ function coinChangeCombinations(coins, target) {
     // Create a DP table with size (target + 1), initialized to 0
     let dp = Array(target + 1).fill(0);
     
-    // There's exactly 1 way to make the amount 0 (by choosing no coins)
+    // Base case: There's exactly 1 way to make the amount 0
     dp[0] = 1;
 
-    // Process each coin one by one
+    // Process each coin
     for (let coin of coins) {
-        // For each coin, update dp[i] for all i >= coin
         for (let i = coin; i <= target; i++) {
             dp[i] += dp[i - coin];
         }
@@ -17,18 +16,36 @@ function coinChangeCombinations(coins, target) {
     return dp[target];
 }
 
-// Function to process the input
-function solve() {
-    let T = parseInt(prompt("Enter the number of test cases:")); // Read number of test cases
-    for (let t = 0; t < T; t++) {
-        let [n, target] = prompt("Enter the number of coins and the target:").split(" ").map(Number); // Read number of coins and target
-        let coins = prompt("Enter the coin denominations:").split(" ").map(Number); // Read coin denominations
+function solve(input) {
+    const lines = input.trim().split("\n");
 
-        // Compute and print the result for the current test case
-        let result = coinChangeCombinations(coins, target);
-        console.log(result);
+    // Number of test cases
+    const T = parseInt(lines[0]);
+    let index = 1;
+
+    const results = [];
+    for (let t = 0; t < T; t++) {
+        // Read n and target
+        const [n, target] = lines[index++].split(" ").map(Number);
+        
+        // Read coins
+        const coins = lines[index++].split(" ").map(Number);
+
+        // Compute the result for the current test case
+        results.push(coinChangeCombinations(coins, target));
     }
+
+    // Print all results
+    console.log(results.join("\n"));
 }
 
-// Call the solve function to start the process
-solve();
+// Input example
+const input = `3
+3 13
+5 2 4
+3 28
+2 5 4
+4 28
+16 163`;
+
+solve(input);
